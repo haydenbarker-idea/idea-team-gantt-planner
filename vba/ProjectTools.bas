@@ -19,15 +19,15 @@ Private Const END_MARKER As String = "Insert new rows ABOVE this one"
 Public Sub NewProject()
     Dim nm As String, client As String, email As String, pm As String, startText As String
 
-    nm = InputBox("Project name:", "New Project")
+    nm = InputBox("Project name (example: Atlantic Packaging - Line 3):", "New Project")
     If StrPtr(nm) = 0 Or Len(Trim$(nm)) = 0 Then Exit Sub
-    client = InputBox("Client:", "New Project")
+    client = InputBox("Client (example: Atlantic Packaging), optional:", "New Project")
     If StrPtr(client) = 0 Then Exit Sub
-    email = InputBox("Client email, for Email Snapshot to Client (optional):", "New Project")
+    email = InputBox("Client email, for Email Snapshot to Client (example: jane.doe@example.com), optional:", "New Project")
     If StrPtr(email) = 0 Then Exit Sub
-    pm = InputBox("Project manager:", "New Project")
+    pm = InputBox("Project manager (example: Vinny Singh), optional:", "New Project")
     If StrPtr(pm) = 0 Then Exit Sub
-    startText = InputBox("Start date:", "New Project", Format$(Date, "yyyy-mm-dd"))
+    startText = InputBox("Start date (example: 2026-11-02 or 11/2/2026). Today is filled in:", "New Project", Format$(Date, "yyyy-mm-dd"))
     If StrPtr(startText) = 0 Then Exit Sub
     If Not IsDate(startText) Then
         MsgBox "'" & startText & "' isn't a date. Try again with a date like " & Format$(Date, "yyyy-mm-dd") & ".", vbExclamation

@@ -28,10 +28,10 @@ function main(workbook: ExcelScript.Workbook) {
 
   if (String(list.getRange(`I${r}`).getValue()) !== "Yes") {
     list.activate();
-    list.getRange(`I${r}`).setValue("Yes");
+    unprotected(list, () => list.getRange(`I${r}`).setValue("Yes"));
     ws.setVisibility(ExcelScript.SheetVisibility.hidden);
   } else {
-    list.getRange(`I${r}`).setValue("");
+    unprotected(list, () => list.getRange(`I${r}`).setValue(""));
     ws.setVisibility(ExcelScript.SheetVisibility.visible);
     ws.activate();
   }
@@ -39,3 +39,13 @@ function main(workbook: ExcelScript.Workbook) {
 
 const PROJECTS_SHEET = "Projects";
 const LIST_FIRST_ROW = 6;
+
+// The sheets are protected so headings and formulas can't be overwritten by accident.
+// Scripts lift the protection while they change a sheet, then put the same protection back.
+function unprotected<T>(ws: ExcelScript.Worksheet, work: () => T): T {
+  const p = ws.getProtection();
+  if (!p.getProtected()) return work();
+  const options = p.getOptions();
+  p.unprotect();
+  try { return work(); } finally { p.protect(options); }
+}

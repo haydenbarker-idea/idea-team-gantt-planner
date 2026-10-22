@@ -27,7 +27,7 @@ End Function
 Public Sub AddSection()
     Dim nm As String
     If ScheduleSheet() Is Nothing Then Exit Sub
-    nm = InputBox("Name of the new section:", "Add Section")
+    nm = InputBox("Name of the new section (example: Rough In):", "Add Section")
     If StrPtr(nm) = 0 Or Len(Trim$(nm)) = 0 Then Exit Sub
     InsertSection Trim$(nm)
 End Sub
@@ -40,7 +40,7 @@ Public Sub AddTask()
                "or at the end of the selected section.", vbInformation, "Add Task"
         Exit Sub
     End If
-    nm = InputBox("Name of the new task:", "Add Task", "New Task")
+    nm = InputBox("Name of the new task (example: Pull cable to IDF 2):", "Add Task", "New Task")
     If StrPtr(nm) = 0 Then Exit Sub
     If Len(Trim$(nm)) = 0 Then nm = "New Task"
     InsertTask Trim$(nm)

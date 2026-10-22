@@ -14,6 +14,11 @@ Back to [[Home]].
 - **Automate pane quirks**: script title can stay "Script" after rename; Recent list only shows recent scripts; Template must be unhidden to add buttons.
 - **Office Scripts has no current-user API** → comment author trick.
 - **OneDrive "Convert file"** honours the sheet's print area and fit-to-page settings.
+- **`Range.find` returns nothing on hidden tabs** (the Template) → scan `getValues()` instead.
+- **Script buttons do nothing on a protected sheet** unless protection allows editing objects.
+- **A protected sheet won't delete a row that has any locked cell** (even far right of the chart) → unlock whole task rows.
+- **Merged cells** (E2:F2): desktop COM can't set Locked on part of a merge → use `MergeArea`; Office Scripts handles it.
+- **Chart looked blank right after opening** a tab in the browser: the bars render a moment later (seen on Costco, 2026-10-22).
 
 ## Automation from this PC
 - PowerShell → Excel COM: string *variables* sometimes fail with "Specified cast is not valid" → cast with `[string]`; `Cells(r,c)` needs `.Item(r,c)`.

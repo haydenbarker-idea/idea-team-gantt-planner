@@ -5,7 +5,10 @@
 // no start date (column E); a task row has a name or a start date. The list runs from
 // row 8 down to the "Insert new rows ABOVE this one" row.
 
-/** Adds a section with one task after the selected section, or at the end of the list. */
+/**
+ * Adds a section with one task after the selected section, or at the end of the list.
+ * @param sectionName Example: Rough In
+ */
 function main(workbook: ExcelScript.Workbook, sectionName: string) {
   const name = (sectionName || "").trim();
   if (!name) throw new Error("Enter a name for the new section.");
@@ -29,17 +32,19 @@ function main(workbook: ExcelScript.Workbook, sectionName: string) {
   const idx = pickColor(list, at);
   const start = nextStartDate(list, at, sheet);
 
-  sheet.getRange(`${at}:${at + 1}`).insert(ExcelScript.InsertShiftDirection.down);
-  if (src === sheet && headerTmpl >= at) headerTmpl += 2;
-  if (src === sheet && taskTmpl >= at) taskTmpl += 2;
+  unprotected(sheet, () => {
+    sheet.getRange(`${at}:${at + 1}`).insert(ExcelScript.InsertShiftDirection.down);
+    if (src === sheet && headerTmpl >= at) headerTmpl += 2;
+    if (src === sheet && taskTmpl >= at) taskTmpl += 2;
 
-  copyLook(src, headerTmpl, sheet, at);
-  recolor(sheet, at, HEADER_COLORS[idx]);
-  sheet.getRange(`B${at}`).setValue(name);
+    copyLook(src, headerTmpl, sheet, at);
+    recolor(sheet, at, HEADER_COLORS[idx]);
+    sheet.getRange(`B${at}`).setValue(name);
 
-  copyLook(src, taskTmpl, sheet, at + 1);
-  recolor(sheet, at + 1, TASK_COLORS[idx]);
-  fillTask(sheet, at + 1, "New Task", start);
+    copyLook(src, taskTmpl, sheet, at + 1);
+    recolor(sheet, at + 1, TASK_COLORS[idx]);
+    fillTask(sheet, at + 1, "New Task", start);
+  });
   sheet.getRange(`B${at + 1}`).select();
 }
 
@@ -186,4 +191,14 @@ function fillTask(sheet: ExcelScript.Worksheet, r: number, name: string, start: 
   sheet.getRange(`D${r}`).setValue(0);
   sheet.getRange(`E${r}:F${r}`).setValues([[start, start]]);
   sheet.getRange(`H${r}`).setFormula(DAYS_FORMULA);
+}
+
+// The sheets are protected so headings and formulas can't be overwritten by accident.
+// Scripts lift the protection while they change a sheet, then put the same protection back.
+function unprotected<T>(ws: ExcelScript.Worksheet, work: () => T): T {
+  const p = ws.getProtection();
+  if (!p.getProtected()) return work();
+  const options = p.getOptions();
+  p.unprotect();
+  try { return work(); } finally { p.protect(options); }
 }

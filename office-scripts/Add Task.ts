@@ -4,7 +4,10 @@
 // no start date (column E); a task row has a name or a start date. The list runs from
 // row 8 down to the "Insert new rows ABOVE this one" row.
 
-/** Adds a task below the selected task, or at the end of the selected section. */
+/**
+ * Adds a task below the selected task, or at the end of the selected section.
+ * @param taskName Example: Pull cable to IDF 2
+ */
 function main(workbook: ExcelScript.Workbook, taskName: string) {
   const sheet = projectSheet(workbook);
   const list = readList(sheet);
@@ -30,11 +33,13 @@ function main(workbook: ExcelScript.Workbook, taskName: string) {
     if (i >= 0) color = TASK_COLORS[i];
   }
 
-  sheet.getRange(`${at}:${at}`).insert(ExcelScript.InsertShiftDirection.down);
-  if (src === sheet && tmpl >= at) tmpl += 1;
-  if (tmpl) copyLook(src, tmpl, sheet, at);
-  if (color) recolor(sheet, at, color);
-  fillTask(sheet, at, name, start);
+  unprotected(sheet, () => {
+    sheet.getRange(`${at}:${at}`).insert(ExcelScript.InsertShiftDirection.down);
+    if (src === sheet && tmpl >= at) tmpl += 1;
+    if (tmpl) copyLook(src, tmpl, sheet, at);
+    if (color) recolor(sheet, at, color);
+    fillTask(sheet, at, name, start);
+  });
   sheet.getRange(`B${at}`).select();
 }
 
@@ -181,4 +186,14 @@ function fillTask(sheet: ExcelScript.Worksheet, r: number, name: string, start: 
   sheet.getRange(`D${r}`).setValue(0);
   sheet.getRange(`E${r}:F${r}`).setValues([[start, start]]);
   sheet.getRange(`H${r}`).setFormula(DAYS_FORMULA);
+}
+
+// The sheets are protected so headings and formulas can't be overwritten by accident.
+// Scripts lift the protection while they change a sheet, then put the same protection back.
+function unprotected<T>(ws: ExcelScript.Worksheet, work: () => T): T {
+  const p = ws.getProtection();
+  if (!p.getProtected()) return work();
+  const options = p.getOptions();
+  p.unprotect();
+  try { return work(); } finally { p.protect(options); }
 }

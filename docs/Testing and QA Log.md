@@ -18,4 +18,8 @@ Back to [[Home]]. All 2026-10-22.
   1. Layout + links: found links only clickable on the arrow → merged link cells; Instructions wording → rewritten per version; About hidden.
   2. Found buttons failing ("script was unshared") right after a desktop save → transient, recovered after sync.
   3. Snapshot rollout: all checks pass; minor polish items → [[Backlog]].
+- 2026-10-22 dates + protection (live): Start/End hint and double-click calendar on protected tabs; locked cell (E3 Today)
+  refused; E2/B1 editable; Run Add Task on protected Atlantic tab (needed objects editable) then manual row delete
+  (needed whole rows unlocked); New Project form shows examples and optional start date (cancelled, not run).
+  Local: inserted rows inherit the date rule (COM on a scratch copy).
 - Email Snapshot flow: first live test sent 6 duplicates (stale reads) → flow turned off, marker files added → retest sent exactly 1 (test copy), then exactly 1 on the live workbook (10:27).

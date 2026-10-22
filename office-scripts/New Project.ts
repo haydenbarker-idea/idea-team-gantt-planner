@@ -7,12 +7,21 @@
 // Everything but Client, Archived, Tab name and Client email is a formula reading the project's tab;
 // its ranges start on the blank row 7 so rows added at the top of the task list are included.
 
-/** Creates a new project tab from the Template and adds it to the Projects list. Start date as 2026-11-02 or 11/2/2026. */
-function main(workbook: ExcelScript.Workbook, projectName: string, startDate: string, client?: string, projectManager?: string, clientEmail?: string) {
+// The @param lines are the hints shown under each field when the button runs. The email
+// example uses a full-width at sign: a plain one would be read as the start of a new tag.
+/**
+ * Creates a new project tab from the Template and adds it to the Projects list.
+ * @param projectName Example: Atlantic Packaging - Line 3
+ * @param startDate Example: 2026-11-02 (or 11/2/2026). Leave blank for today.
+ * @param client Example: Atlantic Packaging (optional)
+ * @param projectManager Example: Vinny Singh (optional)
+ * @param clientEmail Example: jane.doe＠example.com (optional, used by Email Snapshot to Client)
+ */
+function main(workbook: ExcelScript.Workbook, projectName: string, startDate?: string, client?: string, projectManager?: string, clientEmail?: string) {
   const name = (projectName || "").trim();
   if (!name) throw new Error("Enter a project name.");
-  const start = parseDate(startDate);
-  if (start === null) throw new Error(`'${startDate}' isn't a date. Use a date like 2026-11-02.`);
+  let start = parseDate(startDate);
+  if (start === null && (startDate || "").trim()) throw new Error(`'${startDate}' isn't a date. Use a date like 2026-11-02, or leave it blank for today.`);
 
   const tmpl = workbook.getWorksheet(TEMPLATE_SHEET);
   const list = workbook.getWorksheet(PROJECTS_SHEET);
@@ -23,6 +32,8 @@ function main(workbook: ExcelScript.Workbook, projectName: string, startDate: st
   const ws = tmpl.copy(ExcelScript.WorksheetPositionType.before, tmpl);
   tmpl.setVisibility(wasVisible);
   ws.setName(uniqueSheetName(workbook, name));
+  // Blank start date: today, from the tab's own =TODAY() cell (the workbook's clock, not the script's).
+  if (start === null) start = Math.floor(ws.getRange("E3").getValue() as number);
 
   ws.getRange("B1").setValue(name);
   ws.getRange("B3").setValue((projectManager || "").trim());
@@ -37,7 +48,7 @@ function main(workbook: ExcelScript.Workbook, projectName: string, startDate: st
     if (starts[i][0] !== "" && starts[i][0] !== null) ws.getRange(`E${8 + i}:F${8 + i}`).setValues([[start, start]]);
   }
 
-  addToList(list, ws.getName(), (client || "").trim(), (clientEmail || "").trim());
+  unprotected(list, () => addToList(list, ws.getName(), (client || "").trim(), (clientEmail || "").trim()));
   ws.activate();
   ws.getRange("B8").select();
 }
@@ -48,7 +59,7 @@ const LIST_FIRST_ROW = 6;
 const END_MARKER = "Insert new rows ABOVE this one";
 
 // yyyy-mm-dd or m/d/yyyy, as an Excel date serial number.
-function parseDate(text: string): number | null {
+function parseDate(text?: string): number | null {
   const t = (text || "").trim();
   let m = t.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
   let y = 0, mo = 0, d = 0;
@@ -92,4 +103,14 @@ function addToList(list: ExcelScript.Worksheet, tabName: string, client: string,
   list.getRange(`F${r}`).setFormula(`=IF(COUNT(${q}$F$7:$F$1000)=0,"",MAX(${q}$F$7:$F$1000))`);
   list.getRange(`G${r}`).setFormula(`=IFERROR(SUMPRODUCT(${q}$D$7:$D$1000,${q}$H$7:$H$1000)/SUM(${q}$H$7:$H$1000),"")`);
   list.getRange(`H${r}`).setFormula(`=IF(I${r}="Yes","Archived",IF(E${r}="","Not scheduled",IF(N(G${r})>=1,"Complete",IF(TODAY()<E${r},"Not started",IF(TODAY()>F${r},"Overdue","In progress")))))`);
+}
+
+// The sheets are protected so headings and formulas can't be overwritten by accident.
+// Scripts lift the protection while they change a sheet, then put the same protection back.
+function unprotected<T>(ws: ExcelScript.Worksheet, work: () => T): T {
+  const p = ws.getProtection();
+  if (!p.getProtected()) return work();
+  const options = p.getOptions();
+  p.unprotect();
+  try { return work(); } finally { p.protect(options); }
 }

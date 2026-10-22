@@ -25,3 +25,4 @@ template, first used for the Atlantic Packaging network install).
 - Live workbook shared with Vinny Singh (edit) with an instructions email.
 - Online Email Snapshot to Client button live; flow runs every minute.
 - QA polish applied to the live workbook. Next items in [[Backlog]].
+- Sheets protected against accidental edits; date hints on Start/End; form fields show examples.

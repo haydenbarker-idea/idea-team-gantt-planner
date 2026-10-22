@@ -45,6 +45,8 @@ function main(workbook: ExcelScript.Workbook, tabName: string): Snapshot {
     if (ws.getName() !== tabName) ws.delete();
   }
   src.setName("Schedule");
+  // The live tabs are protected against accidental edits; this copy is reworked, then frozen as values.
+  if (src.getProtection().getProtected()) src.getProtection().unprotect();
   makeCustomerView(workbook, src, asOf);
 
   return { projectName, client, clientEmail, fileBase: `${safeFileName(projectName)} - Schedule ${isoDate(asOfSerial)}`, asOf };

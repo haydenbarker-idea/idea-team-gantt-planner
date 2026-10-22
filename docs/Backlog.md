@@ -9,6 +9,16 @@ Back to [[Home]].
 - [x] QA polish on the live workbook via `office-scripts/Polish (one-off).ts` (K5 alignment, K6 border, Instructions wording).
 - [x] Mirrored the live Instructions wording into the local `.xlsx` (online wording, snapshot section added) and `.xlsm` (desktop wording).
 
+## Done 2026-10-22 (later)
+- [x] Start/End date hint + calendar icon, date-only validation; New Project start date optional (blank = today).
+- [x] Example text under every form field (online `@param` hints; desktop InputBox prompts in `vba/*.bas`).
+- [x] Sheet protection on the live file and the local `.xlsx`; scripts unlock/relock.
+
+## Open
+- [ ] Desktop `.xlsm`: import the updated `vba/ProjectTools.bas` / `GanttTools.bas` (prompt examples) and add
+      protection with `UserInterfaceOnly:=True` in Workbook_Open so macros still run. Needs "Trust access to the
+      VBA project object model" switched on by Hayden, or a manual Alt+F11 import.
+
 ## Next
 - [ ] Fill in Atlantic Packaging's Client Email (Projects K6).
 - [ ] Freeze panes on project tabs so task names and buttons stay visible when scrolling the chart.

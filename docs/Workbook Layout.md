@@ -38,4 +38,15 @@ Row 1: title + buttons over E–G. B3: "How to use this workbook ►" link to In
 - Section colour pairs (header / task): #B8CCE4/#DCE6F1, #D8E4BC/#EBF1DE, #E6B8B7/#F2DCDB,
   #CCC0DA/#E4DFEC, #B7DEE8/#DAEEF3. New sections pick one different from both neighbours.
 
+## Protection and date entry (live file and local `.xlsx`; not yet the `.xlsm`)
+No password: it guards against accidents. Set up by `office-scripts/Dates and Protection (one-off).ts`.
+- Project tabs + Template: everything locked except B1, B3, E2, E4, I3:ED3 and whole rows 7 down to
+  just above the marker (whole rows, so they can still be deleted). Insert/delete rows and formatting
+  allowed; inserting/deleting columns, sorting, filtering not. Objects editable (buttons need it).
+- Projects: everything locked except Client (C), Tab (J), Client Email (K). No row insert/delete.
+- Instructions: fully locked. Snapshot Requests: unprotected (the flow writes to it).
+- Start/End (E7:F marker) take dates only (2000–2099), with an input hint "Double-click for a calendar";
+  E6/F6 headers have a 📅. Inserted rows inherit the rule (the range includes the marker row).
+- Scripts lift protection on the sheet they change and put the same options back (`unprotected()` helper).
+
 See [[Customer Snapshot]] for how a tab is reduced for clients.
