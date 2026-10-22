@@ -7,10 +7,7 @@ Back to [[Home]].
 
 ## Done 2026-10-22
 - [x] QA polish on the live workbook via `office-scripts/Polish (one-off).ts` (K5 alignment, K6 border, Instructions wording).
-
-## Open
-- [ ] Mirror the live Instructions wording (snapshot section, client email mentions) in the local
-      `.xlsx` / `.xlsm` copies; they are reference copies, the live file is the source of truth.
+- [x] Mirrored the live Instructions wording into the local `.xlsx` (online wording, snapshot section added) and `.xlsm` (desktop wording).
 
 ## Next
 - [ ] Fill in Atlantic Packaging's Client Email (Projects K6).

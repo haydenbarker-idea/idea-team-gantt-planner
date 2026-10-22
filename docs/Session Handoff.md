@@ -14,12 +14,11 @@ Start here in a new session, then [[Home]] and [[Lessons Learned]].
 - Online buttons working and QA-passed: New Project, Archive Project, Add Section, Add Task, Email Snapshot to Client.
 - Flow "Project Schedules - email snapshot" ON, every minute, owned by Hayden ([[Email Snapshot Flow]]).
 - Desktop `Project Schedules.xlsm` in the repo: all buttons incl. Export Snapshot / Email Snapshot (Outlook draft).
-- Local `.xlsx`/`.xlsm` are reference copies; their Instructions lack the latest snapshot wording.
+- Local `.xlsx`/`.xlsm` are reference copies; their Instructions match the live wording (desktop wording in `.xlsm`).
 
 ## Open items ([[Backlog]])
 1. Fill Atlantic Packaging's Client Email (Projects!K6).
-2. Mirror live Instructions wording into local `.xlsx`/`.xlsm` (desktop wording for `.xlsm`).
-3. Optional: freeze panes on project tabs; move live file to SharePoint/Teams (then re-point flow);
+2. Optional: freeze panes on project tabs; move live file to SharePoint/Teams (then re-point flow);
    service account for the flow; TigerPaw service-order import (needs a sample order).
 
 ## How to work safely
