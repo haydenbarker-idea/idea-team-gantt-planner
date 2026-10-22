@@ -23,4 +23,4 @@ template, first used for the Atlantic Packaging network install).
 - Desktop and online versions both working and tested.
 - Live workbook shared with Vinny Singh (edit) with an instructions email.
 - Online Email Snapshot to Client button live; flow runs every minute.
-- Pending: small QA wording/format polish on the live workbook (see [[Backlog]]).
+- QA polish applied to the live workbook. Next items in [[Backlog]].

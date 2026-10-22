@@ -5,11 +5,12 @@ tags: [backlog]
 
 Back to [[Home]].
 
-## In progress
-- [ ] Run `office-scripts/Polish (one-off).ts` on the live workbook: left-align K5, border under K6,
-      Instructions heading "Send the client a snapshot", "the person who clicked gets an email",
-      mention optional client email (New Project step + Projects-tab bullet). Then delete its `.osts`.
-- [ ] Mirror that wording in the local `.xlsx` / `.xlsm` Instructions.
+## Done 2026-10-22
+- [x] QA polish on the live workbook via `office-scripts/Polish (one-off).ts` (K5 alignment, K6 border, Instructions wording).
+
+## Open
+- [ ] Mirror the live Instructions wording (snapshot section, client email mentions) in the local
+      `.xlsx` / `.xlsm` copies; they are reference copies, the live file is the source of truth.
 
 ## Next
 - [ ] Fill in Atlantic Packaging's Client Email (Projects K6).
