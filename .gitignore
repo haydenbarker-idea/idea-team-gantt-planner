@@ -1,0 +1,17 @@
+# Office lock/temp files
+~$*
+*.tmp
+~*.xlsx
+~*.xlsm
+
+# OS / editor
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Obsidian workspace state (keep notes, not UI layout)
+docs/.obsidian/workspace*.json
+docs/.obsidian/cache
+
+# Python
+__pycache__/
