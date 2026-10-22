@@ -22,4 +22,7 @@ Back to [[Home]]. All 2026-10-22.
   refused; E2/B1 editable; Run Add Task on protected Atlantic tab (needed objects editable) then manual row delete
   (needed whole rows unlocked); New Project form shows examples and optional start date (cancelled, not run).
   Local: inserted rows inherit the date rule (COM on a scratch copy).
+- 2026-10-22 desktop protection (COM, scratch copy, macros on): all tabs protected; CreateProject (new tab protected,
+  listed with email), InsertTask (date rule inherited), InsertSection, DeleteRows, Archive/Restore, SaveSnapshotFor
+  (PDF + xlsx; copy unprotected, no formulas) all pass. ActivePrinter couldn't be set before a workbook was open.
 - Email Snapshot flow: first live test sent 6 duplicates (stale reads) → flow turned off, marker files added → retest sent exactly 1 (test copy), then exactly 1 on the live workbook (10:27).

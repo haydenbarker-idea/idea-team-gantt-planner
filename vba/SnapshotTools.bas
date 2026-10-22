@@ -62,6 +62,7 @@ Public Function SaveSnapshot(src As Worksheet, ByVal folder As String) As Varian
     src.Copy                                   ' new workbook holding just this tab
     Set wb = ActiveWorkbook
     Set ws = wb.Worksheets(1)
+    ws.Unprotect                               ' the live tabs are protected; the copy is reworked, then frozen
     ws.Name = "Schedule"
     MakeCustomerView ws
 

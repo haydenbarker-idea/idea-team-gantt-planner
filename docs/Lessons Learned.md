@@ -27,3 +27,4 @@ Back to [[Home]].
 - Chrome screenshots time out when the Chrome window isn't in front; DOM tools (find/get_page_text) still work.
 - Power Automate classic designer "Copy to my clipboard" JSON can be generated and pasted (much faster than building actions by hand); the new designer's clipboard format is internal UI state (not practical).
 - Run long waits as background jobs; foreground sleeps are blocked.
+- `ActivePrinter` threw 0x800A03EC when set right after starting Excel → set it after opening a workbook.

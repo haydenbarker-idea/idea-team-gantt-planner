@@ -66,6 +66,7 @@ Public Sub CreateProject(projectName As String, client As String, pm As String, 
 
     Set tmpl = ThisWorkbook.Worksheets(TEMPLATE_SHEET)
     Application.ScreenUpdating = False
+    ProtectAll  ' lets the macro change the protected Projects tab
 
     wasVisible = tmpl.Visible
     tmpl.Visible = xlSheetVisible
@@ -73,6 +74,7 @@ Public Sub CreateProject(projectName As String, client As String, pm As String, 
     Set ws = ActiveSheet  ' the copy
     tmpl.Visible = wasVisible
     ws.Name = UniqueSheetName(projectName)
+    ProtectSchedule ws  ' the copy keeps the protection but not the macro exception
 
     ws.Range("B1").Value = projectName
     ws.Range("B3").Value = pm
@@ -95,6 +97,7 @@ End Sub
 
 Public Sub SetArchived(listRow As Long, archive As Boolean)
     Dim list As Worksheet, ws As Worksheet
+    ProtectAll  ' lets the macro change the protected Projects tab
     Set list = ThisWorkbook.Worksheets(PROJECTS_SHEET)
 
     On Error Resume Next

@@ -60,6 +60,7 @@ Public Sub DeleteRows(Optional askFirst As Boolean = True)
     If askFirst Then
         If MsgBox(msg, vbQuestion + vbYesNo + vbDefaultButton2, "Delete Rows") <> vbYes Then Exit Sub
     End If
+    ProtectAll  ' lets the macro change the protected tab
     target.EntireRow.Delete
 End Sub
 
@@ -70,6 +71,7 @@ End Sub
 Public Sub InsertSection(sectionName As String)
     Dim ws As Worksheet, r As Long, h As Long, at As Long
     Dim idx As Long, tmpl As Long, startDate As Double
+    ProtectAll  ' lets the macro change the protected tab
 
     Set ws = ActiveSheet
 
@@ -118,6 +120,7 @@ End Sub
 Public Sub InsertTask(taskName As String)
     Dim ws As Worksheet, r As Long, h As Long, at As Long
     Dim tmpl As Long, startDate As Double, color As Long, i As Long
+    ProtectAll  ' lets the macro change the protected tab
 
     Set ws = ActiveSheet
     h = CurrentSection()

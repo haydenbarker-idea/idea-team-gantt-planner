@@ -20,8 +20,7 @@ Start here in a new session, then [[Home]] and [[Lessons Learned]].
 
 ## Open items ([[Backlog]])
 1. Fill Atlantic Packaging's Client Email (Projects!K6).
-2. Desktop `.xlsm`: VBA prompt examples + protection not imported yet ([[Backlog]]).
-3. Optional: freeze panes on project tabs; move live file to SharePoint/Teams (then re-point flow);
+2. Optional: freeze panes on project tabs; move live file to SharePoint/Teams (then re-point flow);
    service account for the flow; TigerPaw service-order import (needs a sample order).
 
 ## How to work safely

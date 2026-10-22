@@ -38,7 +38,7 @@ Row 1: title + buttons over E–G. B3: "How to use this workbook ►" link to In
 - Section colour pairs (header / task): #B8CCE4/#DCE6F1, #D8E4BC/#EBF1DE, #E6B8B7/#F2DCDB,
   #CCC0DA/#E4DFEC, #B7DEE8/#DAEEF3. New sections pick one different from both neighbours.
 
-## Protection and date entry (live file and local `.xlsx`; not yet the `.xlsm`)
+## Protection and date entry (live file, `.xlsx` and `.xlsm`)
 No password: it guards against accidents. Set up by `office-scripts/Dates and Protection (one-off).ts`.
 - Project tabs + Template: everything locked except B1, B3, E2, E4, I3:ED3 and whole rows 7 down to
   just above the marker (whole rows, so they can still be deleted). Insert/delete rows and formatting

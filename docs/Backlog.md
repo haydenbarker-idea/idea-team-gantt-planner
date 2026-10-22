@@ -14,10 +14,7 @@ Back to [[Home]].
 - [x] Example text under every form field (online `@param` hints; desktop InputBox prompts in `vba/*.bas`).
 - [x] Sheet protection on the live file and the local `.xlsx`; scripts unlock/relock.
 
-## Open
-- [ ] Desktop `.xlsm`: import the updated `vba/ProjectTools.bas` / `GanttTools.bas` (prompt examples) and add
-      protection with `UserInterfaceOnly:=True` in Workbook_Open so macros still run. Needs "Trust access to the
-      VBA project object model" switched on by Hayden, or a manual Alt+F11 import.
+- [x] Desktop `.xlsm`: prompt examples imported, protection added (ProtectTools + Workbook_Open), all macros tested.
 
 ## Next
 - [ ] Fill in Atlantic Packaging's Client Email (Projects K6).
