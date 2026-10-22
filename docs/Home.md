@@ -8,6 +8,7 @@ Gantt-chart workbook for Idea Networks install projects (started from the Vertex
 template, first used for the Atlantic Packaging network install).
 
 ## Map
+- [[Session Handoff]] – start here when picking the work back up.
 - [[Workbook Layout]] – tabs, columns, named ranges, the Template.
 - [[Desktop Version (VBA)]] – `Project Schedules.xlsm`, macro buttons.
 - [[Online Version (Office Scripts)]] – `Project Schedules.xlsx` on OneDrive, script buttons.
